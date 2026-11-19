@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP + HTMX</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/htmx.org@4.0.2/dist/htmx.esm.min.js"
+        integrity="sha384-PYnh6MaURFpP9898CI8TFVoT+EHl/c7nUDOzs/fFVEFKG/Y+CrRyF+b+3QzXroKM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <input type="text" name="q" placeholder="Search..." hx-get="/search.php"
+        hx-trigger="input, keyup[key=='Enter']" hx-target="#search-results">
+    <div id="search-results"></div>
+</body>
+
+</html>
