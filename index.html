@@ -11,9 +11,53 @@
 </head>
 
 <body>
-    <input type="text" name="q" placeholder="Search..." hx-get="/search.php"
-        hx-trigger="input, keyup[key=='Enter']" hx-target="#search-results">
-    <div id="search-results"></div>
+    <h1>Exemplos PHP + HTMX</h1>
+
+    <section>
+        <h2>1. Busca em tempo real (<code>hx-get</code>)</h2>
+        <input type="text" name="q" placeholder="Search..." hx-get="/search.php"
+            hx-trigger="input, keyup[key=='Enter']" hx-target="#search-results">
+        <div id="search-results"></div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>2. Contador com Sessão (<code>hx-post</code>)</h2>
+        <p>Valor atual: <strong id="counter-value" hx-get="/counter.php" hx-trigger="load">0</strong></p>
+        <button hx-post="/counter.php?action=dec" hx-target="#counter-value">-1</button>
+        <button hx-post="/counter.php?action=inc" hx-target="#counter-value">+1</button>
+        <button hx-post="/counter.php?action=reset" hx-target="#counter-value">Zerar</button>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>3. Lista de Tarefas (<code>hx-post</code> + <code>hx-delete</code>)</h2>
+        <form hx-post="/todos.php" hx-target="#todo-list" hx-swap="beforeend"
+            hx-on::after-request="if(event.detail.successful) this.reset()">
+            <input type="text" name="task" placeholder="Nova tarefa..." required>
+            <button type="submit">Adicionar</button>
+        </form>
+        <ul id="todo-list" hx-get="/todos.php" hx-trigger="load"></ul>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>4. Carregar conteúdo do servidor (<code>hx-get</code>)</h2>
+        <button hx-get="/quote.php" hx-target="#quote-box">Carregar frase e hora</button>
+        <div id="quote-box"></div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>5. Validação em tempo real (<code>hx-post</code>)</h2>
+        <input type="text" name="username" placeholder="Escolha um usuário (ex: admin)"
+            hx-post="/validate.php" hx-trigger="input delay:400ms" hx-target="#username-feedback">
+        <div id="username-feedback"></div>
+    </section>
 </body>
 
 </html>
